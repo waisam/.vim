@@ -62,7 +62,7 @@ function! Get_branch_name()
     endtry
     let l:gitrevparse=system('git branch --show-current')
     lcd-
-    if l:gitrevparse!~'fatal: not a git repository'
+    if l:gitrevparse!~'.git'
       let b:gitbranch='['.substitute(l:gitrevparse, '\n', '', 'g').']'
     endif
   endif
@@ -157,6 +157,7 @@ Plug 'itchyny/vim-cursorword'
 " 状态栏
 
 " Git
+" Plug 'tpope/vim-fugitive'
 
 " 自动补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
