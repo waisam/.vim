@@ -12,6 +12,8 @@ set softtabstop=2
 set showcmd
 set laststatus=2
 set scrolloff=5
+set wildmenu
+set wildmode=list:longest
 set encoding=utf-8
 set spelllang=en_us,cjk
 " ==================== Stauts Line ======================
@@ -75,8 +77,8 @@ augroup END
 " ==================== Basic Mappings ======================
 " Set mapleader from backslash  to space
 " let mapleader = " "
-"nnoremap Q :q<CR>
-"nnoremap W :w<CR>
+" nnoremap Q :q<CR>
+" nnoremap W :w<CR>
 " Copy to system clipboard
 vnoremap Y "+y
 " mapping leader+o to open floding
@@ -114,7 +116,7 @@ noremap tf :tabf <cfile><CR>
 noremap th :-tabnext<CR>
 noremap tl :+tabnext<CR>
 if has('terminal')
-	noremap term :tab term<CR>
+	noremap tt :tab term<CR>
 endif
 
 " ==================== Window management ===================
@@ -124,7 +126,8 @@ noremap <LEADER>h <C-w>h
 noremap <LEADER>j <C-w>j
 noremap <LEADER>k <C-w>k
 noremap <LEADER>l <C-w>l
-noremap <LEADER>o <C-w>o
+" \ + c关闭窗口
+noremap <LEADER>c <C-w>o
 " 禁用s键的默认行为
 noremap s <Nop>
 " 向上(水平)、向下(水平)、、向左(垂直)、向右(垂直)分割窗口
@@ -138,6 +141,32 @@ noremap <Down> :res -5<CR>
 noremap <Left> :vertical resize-5<CR>
 noremap <Right> :vertical resize+5<CR>
 
+" ==================== Run =====================
+autocmd BufWinEnter *.c,*.py,*.java nnoremap <silent>r :w<CR>:call Run()<CR>
+func! Run()
+	" 保存文件
+	exec "w"
+	if &filetype == 'c'
+		set splitbelow
+		term ++shell gcc %:p -o %:p:r && %:p:r
+	elseif &filetype == 'python'
+		set splitbelow
+		term python %:p
+	elseif &filetype == 'java'
+		set splitbelow
+		let l:package = substitute(getline(search('package')), '^\s*package\s\+\(.*\);\s*$', '\1', '')
+		exec 'term ++shell javac -d %:p:h %:p && java -cp %:p:h '.l:package .'.'.'%<'
+	endif
+endfunc
+
+" ==================== Debug =====================
+autocmd BufWinEnter *.c,*.py noremap <silent><F5> :w<CR>:term python -m pdb %:p<CR>
+
+" ==================== ternimal scroll =====================
+" CTRL-W,N后正常使用hjkl
+" Go to Terminal-Normal mode
+tnoremap <C-n> <C-w>N
+
 " ==================== Check/Install Vim-Plug ====================
 if empty(glob($HOME.'/.vim/autoload/plug.vim'))
 	silent !curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs
@@ -149,7 +178,7 @@ endif
 call plug#begin('~/.vim/plugged/')
 
 " File navigation
-" Plug 'francoiscabrol/ranger.vim'
+Plug 'francoiscabrol/ranger.vim'
 
 " 给光标单词加下划线、高亮
 Plug 'itchyny/vim-cursorword'
@@ -180,14 +209,13 @@ let g:termdebug_config={
 \}
 nnoremap dbg :Termdebug<CR>
 
-
 " ==================== File Navigation =============
 " choose one of the follow navigation
 " Use Netrw
 " source $HOME/.vim/configuration/netrw.vim
 
 " Use rangerr.vim
-" source $HOME/.vim/configuration/ranger.vim
+source $HOME/.vim/configuration/ranger.vim
 
 " ==================== coc.nvim ====================
 let g:coc_global_extensions = [
