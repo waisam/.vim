@@ -58,12 +58,15 @@
 	"explorer.keyMappingMode": "none",
 	"explorer.buffer.showHiddenBuffers": false,
 
+	"prettier.semi": false,
 	"prettier.printWidth": 100,
 	"prettier.disableLanguages": [],
 	"prettier.formatterPriority": 1,
 	"prettier.useTabs": true,
-	"prettier.trailingComma": "all",
+	"prettier.trailingComma": "none",
 	"prettier.singleQuote": false,
+	"prettier.vueIndentScriptAndStyle": true,
+	"prettier.arrowParens": "avoid",
 
 	"diagnostic.signOffset": 1,
 	"diagnostic.errorSign": "\uf467",
