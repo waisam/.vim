@@ -26,6 +26,8 @@ set statusline+=%1*\ <<
 set statusline+=%1*\ %f                  " short filename
 set statusline+=%1*\ >>
 set statusline+=%1*\ 
+set statusline+=%4*\%{Encoding()}        " show file encoding
+set statusline+=%1*\ 
 set statusline+=%1*\%h%m%r               " file flags (help, read-only, modified)
 set statusline+=%=                       " right align
 set statusline+=%*
@@ -52,6 +54,10 @@ function! StatuslineMode()
     elseif l:mode==#'R'
         return 'REPLACE'
     endif
+endfunction
+
+function! Encoding()
+		return &fileencoding
 endfunction
 
 function! Get_branch_name()
@@ -207,7 +213,7 @@ packadd termdebug
 let g:termdebug_config={
 	\'wide':1,
 \}
-nnoremap dbg :Termdebug<CR>
+nnoremap dbg :Termdebug %<<CR>
 
 " ==================== File Navigation =============
 " choose one of the follow navigation
