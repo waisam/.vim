@@ -38,23 +38,6 @@
     "variable": "\ue71b"
   },
 
-  "explorer.quitOnOpen": true,
-  "explorer.sources": [
-    {
-      "name": "buffer",
-      "expand": false
-    },
-    {
-      "name": "file",
-      "expand": true
-    }
-  ],
-  "explorer.file.column.indent.indentLine": true,
-  "explorer.file.showHiddenFiles": true,
-  "explorer.icon.enableNerdfont": true,
-  "explorer.keyMappingMode": "none",
-  "explorer.buffer.showHiddenBuffers": false,
-
   "prettier.semi": false,
   "prettier.printWidth": 100,
   "prettier.disableLanguages": [],

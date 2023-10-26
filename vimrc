@@ -165,8 +165,8 @@ func! Run()
 	endif
 endfunc
 
-" ==================== Debug =====================
-autocmd BufWinEnter *.c,*.py noremap <silent><F5> :w<CR>:term python -m pdb %:p<CR>
+" ========================= Python Debug ========================
+autocmd BufWinEnter *.py noremap <silent><F5> :w<CR>:term python -m pdb %:p<CR>
 
 " ==================== ternimal scroll =====================
 " CTRL-W,N后正常使用hjkl
@@ -205,6 +205,7 @@ Plug 'udalov/kotlin-vim'
 " Python
 
 " Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -235,7 +236,6 @@ let g:coc_global_extensions = [
 			\ 'coc-snippets', 
 			\ 'coc-sql', 
 			\ 'coc-syntax', 
-			\ 'coc-translator',
 			\ 'coc-vimlsp', 
 			\ 'coc-yaml',
 			\ 'coc-yank'
